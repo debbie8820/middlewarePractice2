@@ -20,7 +20,7 @@ Add a middleware function that measures the request duration
 1. clone 此專案至本機電腦
 
    ```
-   $ git clone https://github.com/debbie8820/middlewarePractice.git
+   $ git clone https://github.com/debbie8820/middlewarePractice2.git
    ```
 
 2. 進入專案資料夾並安裝
