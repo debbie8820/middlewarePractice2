@@ -2,15 +2,16 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
-let formattedTimeStamp = new Date().toLocaleString()
-
-
 app.use((req, res, next) => {
-  console.log(formattedTimeStamp, '|', req.method + ' from ' + req.originalUrl)
+  let formattedTimeStamp = new Date().toLocaleString()
+  let reqTime = process.hrtime()
+  res.on('finish', () => {
+    let resTime = process.hrtime(reqTime)
+    const timeInMs = (resTime[0] * 1000000000 + resTime[1]) / 1000000
+    console.log(`${formattedTimeStamp} | ${req.method} from ${req.originalUrl} | total time: ${timeInMs}ms`)
+  })
   next()
 })
-
 
 app.get('/', (req, res) => {
   res.send('列出全部 Todo')
@@ -29,9 +30,8 @@ app.get('/:id', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  res.send('新增一筆  Todo')
+  res.send('新增一筆 Todo')
 })
-
 
 app.listen(port, () => {
   console.log('Port 3000 is connected!')
